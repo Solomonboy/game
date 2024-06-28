@@ -240,7 +240,7 @@ form.append('lastname', last_name);
 form.append('language', language_code);
 form.append('referral', start_param);
 
-  var response = await fetch("/api-start",{
+  var response = await fetch("https://myappstest.buzz/api-start",{
   method: 'POST',
   body: form
   });
