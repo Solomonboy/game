@@ -1,0 +1,327 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+
+body {
+  background-color: #b4edf6;
+  /* Вы можете изменить цвет на желаемый */
+  font-family: 'Press Start 2P', cursive;
+
+  /* cursive - запасной вариант шрифта */
+  /* Остальные стили */
+}
+
+body,
+button,
+input,
+textarea {
+  font-family: 'Press Start 2P', cursive;
+
+  /* Или другое название, если используете веб-шрифт */
+}
+
+.status-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(30, 86, 70, 0.7);
+  color: white;
+  padding: 10px;
+  width: 100%;
+  height: 80px;
+  /* Подтвердите или скорректируйте высоту при необходимости */
+  box-sizing: border-box;
+  z-index: 1000;
+  /* Убедимся, что статус-бар остается на переднем плане */
+  display: flex;
+  /* Используем flexbox для управления расположением элементов */
+  align-items: center;
+  /* Центрируем элементы по вертикали */
+  justify-content: space-between;
+  /* Распределение дочерних элементов на всю доступную ширину */
+}
+
+.status-bar .emoji {
+  font-size: 30px;
+  /* Увеличенный размер эмодзи для лучшей видимости */
+  vertical-align: middle;
+  margin-right:5px;
+  /* Выравнивание по середине относительно других элементов в статус-баре */
+}
+
+.status-bar>div {
+  /* Отступ справа для элементов внутри статус-бара */
+  display: flex;
+  align-items: center;
+  /* Центрирование элементов по вертикали */
+}
+.status-bar>div.level {margin:5px 0;}
+.exp-bar-container {
+  flex-grow: 1;
+  /* Контейнер полосы опыта занимает все доступное пространство */
+  height: 20px;
+  /* Устанавливаем высоту контейнера полосы опыта */
+  background-color: #ddd;
+  /* Серый фон для контейнера */
+  margin-top: 5px;
+  /* Отступ сверху, если требуется */
+  overflow: hidden;
+  /* Обрезаем содержимое, выходящее за рамки */
+}
+
+.exp-bar {
+  height: 100%;
+  /* Полоса опыта занимает всю высоту своего контейнера */
+  background-color: #4CAF50;
+  /* Зеленый цвет полосы опыта */
+  width: 0%;
+  /* Начальная ширина полосы, которая будет изменяться динамически */
+}
+
+
+/* Основные игровые элементы */
+.game {
+  position: fixed;
+  /* Используем fixed, чтобы игра всегда была на весь экран */
+  top: 0;
+  /* Отступ сверху */
+  left: 0;
+  /* Отступ слева */
+  right: 0;
+  /* Отступ справа */
+  bottom: 0;
+  /* Отступ снизу */
+  background-image: url('/static/site/img/game-bg.svg');
+  background-size: cover;
+  /* Растягиваем фон на весь доступный пространство */
+  background-position: center;
+  /* Центрирование фона */
+  border: none;
+  /* Если рамка не нужна, ее можно убрать */
+}
+
+
+.cat,
+.coin {
+  cursor: pointer;
+  user-select: none;
+}
+
+#cat {
+  width: 40vw;
+  /* Процент ширины от вьюпорта, адаптируется к размеру экрана */
+  height: 40vw;
+  /* Высота равна ширине для сохранения пропорций */
+  background-image: url(/static/site/img/game-memeow.svg);
+  background-size: cover;
+  position: absolute;
+  bottom: 10%;
+  /* Процент от нижней части .game */
+  left: 30%;
+  /* Центрирование относительно текущей позиции */
+  /* Процент от левой части .game */
+  transition: transform 0.2s ease;
+}
+
+#cat:active {
+  transform: scale(0.9);
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  pointer-events: none;
+  /* Исключает взаимодействие с анимацией */
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+}
+
+
+#coin {
+  width: 30vw;
+  /* Меньший процент ширины от вьюпорта для монеты */
+  height: 30vw;
+  /* Высота равна ширине для сохранения пропорций */
+  background-image: url(/static/site/img/coin-memeow.svg);
+  background-size: cover;
+  position: absolute;
+  bottom: 30%;
+  /* Процент от нижней части .game */
+  left: 50%;
+  /* Центрирование монеты относительно .game */
+  transform: translate(-50%, 0);
+  /* Центрирование относительно текущей позиции */
+  visibility: hidden;
+  opacity: 0;
+  transition: transform 2s ease, opacity 2s ease;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-200px);
+    opacity: 0;
+  }
+}
+
+.flip-horizontal {
+  transform: scale(-1, 1);
+}
+
+.animate-coin {
+  animation: jump 5s ease forwards;
+}
+
+.button-container {
+  position: absolute;
+  bottom: 2%;
+  /* Отступ снизу */
+  left: 10px; 
+  right:10px;
+  /* Центрирование контейнера */
+  display: flex;
+    justify-content: space-between;
+  width:calc(100% - 20px);
+  /* Ширина контейнера относительно ширины экрана */  
+}
+
+.game-button {
+  background-color: #78909C;
+  color: #FFF;
+  border: none;
+  padding: 12px 20px;
+  margin: 0px;
+  border-radius: 25px;
+  font-size: 1rem;
+  /* Размер шрифта */
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.game-button:hover {
+  background-color: #546E7A;
+  /* Цвет фона кнопки при наведении */
+}
+
+/* При необходимости добавьте дополнительные стили для каждой кнопки по id */
+
+#withdraw-button {
+  /* Индивидуальные стили для кнопки Withdraw */
+}
+
+#referral-button {
+  /* Индивидуальные стили для кнопки Referral */
+}
+
+#logout-button {
+  /* Индивидуальные стили для кнопки Logout */
+}
+
+/* Медиа-запросы для адаптации кнопок под маленькие экраны */
+@media (max-width: 768px) {
+  .game-button {
+    padding: 8px 16px;
+    /* Уменьшаем размер отступов */
+    font-size: 0.8rem;
+    /* Уменьшаем размер шрифта */
+  }
+}
+
+@media (max-width: 480px) {
+ 
+
+  .game-button {
+    padding: 12px 12px;
+    /* Еще меньше отступы */
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .button-container {
+    bottom: 5%;
+    /* Увеличиваем отступ снизу для лучшей видимости */
+  }
+
+  .game-button {
+    padding: 5px 10px;
+    /* Минимальные отступы */
+    font-size: 0.6rem;
+    /* Минимальный размер шрифта */
+  }
+}
+
+@media (max-width: 768px) {
+  .status-bar {
+    height: auto;
+    /* Автоматическая высота для адаптивности */
+    padding: 5px;
+    flex-direction: column;
+    /* Элементы статус-бара становятся вертикально ориентированными */
+  }
+
+  .status-bar .emoji {
+    font-size: 20px;
+    /* Уменьшенный размер эмодзи */
+  }
+
+  .exp-bar-container {
+    width: 100%;
+    /* Занимает всю ширину статус-бара */
+    height: 20px;
+    /* Постоянная высота для контейнера полосы опыта */
+    margin-top: 5px;
+    /* Отступ от верхней части статус-бара */
+  }
+
+  .exp-bar {
+    width: 0%;
+    /* Начальная ширина полосы, пример */
+  }
+}
+
+@media (max-width: 480px) {
+  .status-bar {
+    padding: 10px;
+  }
+
+  .status-bar .emoji {
+    font-size: 15px;
+    /* Еще более маленький размер для очень малых экранов */
+  }
+
+  .exp-bar-container {
+    margin-top: 3px;
+  }
+}
+@media (max-width: 460px) {
+	#cat {width:200px; height:200px; left:50%; margin-left:-100px;}
+}
+@media (max-width: 380px) {
+	.status-bar>div {font-size:14px;}
+}
+@media (max-width: 350px) {
+	.game-button {font-size:10px;}
+}
+@media (min-width: 560px) {	
+body {display:flex;background:#536176;}
+	.memeGame {display:flex; flex-flow:column;  position:fixed; left:0; top:0; bottom:0; right:0;}
+	.memeGame .status-bar {width:400px; left:50%; margin-left:-200px;}
+	.memeGame .game {width:400px; height:100vh; left:50%; margin-left:-200px;}
+	.memeGame .status-bar {flex-flow:column; height:auto; font-size:12px;}
+	.memeGame .status-bar>div { width: 100%; display: flex; align-items: center; justify-content: center; }
+	.memeGame .status-bar>div.exp-bar-container {justify-content: flex-start;}
+	.memeGame #cat {width:200px; height:200px; margin-left:-100px; left:50%;}
+	.memeGame .status-bar .emoji {font-size:20px;}
+	.memeGame .game-button {font-size:11px;}
+	.memeGame #coin {width:170px; height:170px;}
+}

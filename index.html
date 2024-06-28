@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>$MEMEO</title>
+          <script src='https://telegram.org/js/telegram-web-app.js'></script>
+      <style>
+          *{
+  box-sizing:border-box;
+}
+<!--html {height:100%;}-->
+body {
+  background-color:#cecbc4;
+  background-image: -webkit-gradient(linear, center top, center bottom, color-stop(0%, #fbfbfb), color-stop(100%, #cecbc4));
+  background-image: -webkit-linear-gradient(top, #fbfbfb 0%, #cecbc4 100%);
+  background-image: -moz-linear-gradient(top, #fbfbfb 0%, #cecbc4 100%);
+  background-image: -ms-linear-gradient(top, #fbfbfb 0%, #cecbc4 100%);
+  background-image: -o-linear-gradient(top, #fbfbfb 0%, #cecbc4 100%);
+  background-image: linear-gradient(to bottom, #fbfbfb 0%, #ce003f4a 100%);
+}
+div#loader_container {
+    width: 300px;
+    margin: 110px auto;
+    text-align: center;
+    padding-top: 50px;
+}
+div#bar_container {
+  height:24px;
+  background:#dcdbd7;
+  border-radius:20px;
+  border-top:1px solid #cfcec9;
+  border-bottom:1px solid #f7f6f4;
+  box-shadow:0 -1px 0 #bab9b4;
+  margin-bottom:10px;
+  position:relative;
+}
+div#progress_bar {
+  background-color:#dcf1c6;
+background-image: -webkit-gradient(linear, center top, center bottom, color-stop(0%, #9fbff4), color-stop(100%, #555bb4));
+background-image: -webkit-linear-gradient(top, #9fbff4 0%, #555bb4 100%);
+background-image: -moz-linear-gradient(top, #9fbff4 0%, #555bb4 100%);
+background-image: -ms-linear-gradient(top, #9fbff4 0%, #555bb4 100%);
+background-image: -o-linear-gradient(top, #9fbff4 0%, #555bb4 100%);
+background-image: linear-gradient(to bottom, #fe7c94 0%, #60567f 100%);
+  height:110%;
+  position:absolute;
+  top:-3px;
+  left:0px;
+  border-top:1px solid #e5ebf4;
+  border-radius:20px;
+  box-shadow:0 3px 10px #717171;
+  width:10%;
+  transition:width 0.1s ease-in-out;
+}
+div#progress_percentage {
+  position:absolute;
+  top:-35px;
+  right:-10px;
+  width:40px;
+  height:24px;
+  padding-top:6px;
+  background:#edeef2;
+  background-image: -webkit-gradient(linear, center top, center bottom, color-stop(0%, #edeef2), color-stop(100%, #c9c9d3));
+  background-image: -webkit-linear-gradient(top, #edeef2 0%, #c9c9d3 100%);
+  background-image: -moz-linear-gradient(top, #edeef2 0%, #c9c9d3 100%);
+  background-image: -ms-linear-gradient(top, #edeef2 0%, #c9c9d3 100%);
+  background-image: -o-linear-gradient(top, #edeef2 0%, #c9c9d3 100%);
+  background-image: linear-gradient(to bottom, #edeef2 0%, #c9c9d3 100%);
+  border-top:1px solid white;
+  border-right:1px solid #d2d2d0;
+  border-bottom:1px solid #999999;
+  border-left:1px solid #d2d2d0;
+  border-radius:7px;
+  font-size:10px;
+  color:#737371;
+  text-shadow:0 0 2px #bebfc3;
+  box-shadow:0 2px 5px #c1c1bf;
+}
+div#progress_percentage::before { /* used for the border of the arrow */
+  content:"";
+  position:absolute;
+  left:14px;
+  bottom:-11px;
+  border-top:5px solid #999;
+  border-right:5px solid transparent;
+  border-bottom:5px solid transparent;
+  border-left:5px solid transparent;
+}
+div#progress_percentage::after { /* the actual little arrow in the baloon */
+  content:"";
+  position:absolute;
+  left:14px;
+  bottom:-10px;
+  border-top:5px solid #c9c9d3;
+  border-right:5px solid transparent;
+  border-bottom:5px solid transparent;
+  border-left:5px solid transparent;
+}
+div#text_container {
+  color:#757575;
+  font-weight:bold;
+  font-size:22px;
+  text-shadow:-1px 1px 1px #d1d0cc;
+}
+div#text_container span {
+  display:block;
+  font-weight:normal;
+  font-size:11px;
+  margin-top:3px;
+}
+      </style>
+  </head>
+
+  <body id="body" style="margin: 0px;background-image: url('/static/site/images/loading2.jpg');background-repeat: no-repeat;
+     background-size: 100% 100%;">
+
+      <div id="loader_container">
+
+  <div id="bar_container">
+    <div id="progress_bar">
+      <div id="progress_percentage">
+        10%
+      </div><!--of #progress_percentage-->
+    </div><!--of #progress_bar-->
+  </div><!--of #bar_container-->
+
+  <div id="text_container">
+    Loading
+     </div><!--of #text_container-->
+
+</div>
+<!--         <center><canvas id="unity-canvas2" style="width: 100%; height: 100%;background-image: url('/static/site/images/memeow.png');background-size: contain;background-repeat: no-repeat;">-->
+
+       <!--of #loader_container-->
+<!--         </canvas></center>-->
+
+
+
+<!-- <img src="/static/site/images/memeow.png" alt="" loading="lazy">-->
+<!--        <script>  const canvas2 = document.getElementById("unity-canvas2");-->
+<!--        canvas2.style = `width: ${window.innerWidth}px; height: ${Telegram.WebApp.viewportStableHeight}px;background-image: url('/static/site/images/memeow.png');background-size: contain;background-repeat: no-repeat;`</script>-->
+    <canvas id="unity-canvas" style="width: 100%; height: 100%;"></canvas>
+
+
+    <script src="./static/site/Build/site.loader.js"></script>
+
+    <script>
+    var end=0;
+    var endSend=0;
+      var inst;
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "./static/site/Build/site.data",
+        frameworkUrl: "./static/site/Build/site.framework.js?v=1.0.0.27",
+        codeUrl: "./static/site/Build/site.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "site",
+        productVersion: "2.0",
+      },(progress) => {
+<!--      document.getElementById("info").innerHTML =  progress;-->
+        document.getElementById("progress_percentage").innerHTML =Math.round(progress*100)+"%";
+      document.getElementById("progress_bar").style.width = Math.round(progress*100)+"%";
+          console.log(progress);
+        }).then((unityInstance) => {
+
+    inst=unityInstance;
+        document.getElementById("body").style = "margin: 0px;";
+        document.getElementById("loader_container").remove();
+              end=1;
+              endSend=1;
+
+        }).catch((message) => {
+          alert(message);
+        });
+    </script>
+  <script>
+window.Telegram.WebApp.expand();
+window.Telegram.WebApp.setHeaderColor ('#1c1f24');
+window.Telegram.WebApp.setBackgroundColor  ('#1c1f24');
+const canvas = document.getElementById("unity-canvas");
+canvas.style = `width: ${window.innerWidth}px; height: ${window.innerHeight}px;`;
+function myFunction() {
+
+ canvas.style = `width: ${window.innerWidth}px; height: ${Telegram.WebApp.viewportStableHeight}px;`;
+ console.log('11');
+ if (end==1)
+ {
+ console.log("go");
+
+ end=0;
+ }
+ setTimeout(myFunction, 100);
+}
+<!--setTimeout(myFunction, 500);-->
+
+<!--while (true) {-->
+
+<!--document.getElementById("info").innerHTML =  Telegram.WebApp.isExpanded;-->
+
+<!-- document.getElementById("info2").innerHTML =  Telegram.WebApp.viewportStableHeight;-->
+<!--  document.getElementById("info3").innerHTML =  window.innerWidth;-->
+<!--   document.getElementById("info4").innerHTML =  Telegram.WebApp.initData;-->
+
+<!--}-->
+
+
+
+<!--document.getElementById("info").innerHTML =  Telegram.WebApp.viewportHeight;-->
+
+<!-- document.getElementById("info2").innerHTML =  Telegram.WebApp.viewportStableHeight;-->
+<!--  document.getElementById("info3").innerHTML =  window.innerWidth;-->
+<!--   document.getElementById("info4").innerHTML =  Telegram.WebApp.initData;-->
+<!--console.log(window.Telegram.WebApp.initData);-->
+</script>
+     <script async>
+       async function Start() {
+
+var info=decodeURIComponent(window.Telegram.WebApp.initData);
+if (info.length<3)
+var info='user={"id":1,"first_name":"Чеп123","last_name":"Щен","username":"Forestgampw","language_code":"ru","is_premium":true,"allows_write_to_pm":true}&chat_instance=-6607988779204143502&chat_type=private&start_param=1&auth_date=1718416808&hash=4f0c1ef3b6566d1de26cad71417207afff024837c55462c763248a8eff9786d4';
+
+var urlParams = new URLSearchParams(info);
+var user=urlParams.get('user');
+var start_param=urlParams.get('start_param');
+
+var userjson=JSON.parse(user);
+var chatid=userjson.id;
+var first_name=userjson.first_name;
+var last_name=userjson.last_name;
+var username=userjson.username;
+var language_code=userjson.language_code;
+var is_premium=userjson.is_premium;
+
+      const form = new FormData();
+form.append('chatid', chatid);
+form.append('firstname', first_name);
+form.append('lastname', last_name);
+form.append('language', language_code);
+form.append('referral', start_param);
+
+  var response = await fetch("/api-start",{
+  method: 'POST',
+  body: form
+  });
+  var userjsonme = await response.json();
+  console.log(userjsonme[0]);
+var user=userjsonme[0];
+
+function SendData() {
+
+ if (endSend==1)
+ {
+ var data=user.chatid+';'+user.date+';'+user.firstname.replace(";", '')+';'+user.lastname.replace(";", '')+';'+user.language+';'+user.maxscore+';'+user.allscore+';'+user.balance+';'+user.allbalance+';'+user.ref_you+';'+user.life+';'+user.chest+';'+user.lifeblock+';'+user.blockmine+';'+user.coinmine+';'+user.chancemine+';'+user.task1+';'+user.task2+';'+user.task3+';'+user.task4+';'+user.task5+';'+user.task6+';';
+  inst.SendMessage('ScenesController', 'GetData', data);
+
+ var rankdata="";
+ user.rankdata.forEach((rank) => {
+  rankdata+=rank.firstname.replace(";", '').replace("|", '')+'|'+rank.maxscore+';';
+})
+  var scoredata="";
+ user.scoredata.forEach((score) => {
+  scoredata+=score.firstname.replace(";", '').replace("|", '')+'|'+score.allscore+';';
+})
+ console.log(scoredata);
+
+if ('refcount' in user) {
+var refdata=user.refcount+"||";
+  user.refdata.forEach((ref) => {
+  refdata+=ref.firstname.replace(";", '').replace("|", '')+'|'+ref.maxscore+'|'+ref.allscore+';';
+
+})
+  inst.SendMessage('ScenesController', 'GetRef', refdata);
+} else {
+   inst.SendMessage('ScenesController', 'GetRef', "no");
+}
+
+
+ inst.SendMessage('ScenesController', 'GetRank', rankdata);
+ inst.SendMessage('ScenesController', 'GetScore', scoredata);
+
+
+ endSend=0;
+ }
+ else{ setTimeout(SendData, 50);}
+
+}
+setTimeout(SendData, 100);
+}
+
+
+Start();
+    </script>
+  </body>
+</html>
+
