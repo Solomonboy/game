@@ -249,9 +249,9 @@ body { position:relative; color:#000; font-family: "Inter", sans-serif; backgrou
 	.meme__animation {display:inline-block; position:relative;}
 		.meme__playArea {position:relative;}
 		.meme__playArea .memeBg {vertical-align:bottom; width:100%; max-width:560px;}
-		.memeCat {position:absolute; display:inline-block; z-index:2; bottom:80px; left:15%; animation: slideAnimation 30s linear infinite; }
+		.memeCat {position:absolute; display:inline-block; z-index:2; bottom:170px; left:15%; animation: slideAnimation 30s linear infinite; }
 		@keyframes slideAnimation { 0% { left: 5%; } 50% { left: 55%; } 100% { left: 5%; } }
-		.memeCat img {vertical-align:bottom; width:200px;  animation: flipAnimation 8s infinite steps(1); animation-delay: 0s, 5s;}		
+		.memeCat img {vertical-align:bottom; width:140px;  animation: flipAnimation 8s infinite steps(1); animation-delay: 0s, 5s;}
 		.memeCat:after,
 		.memeCat:before {content:''; display:inline-block; position:absolute; right:0; top:50px; height:50px; width:50px; background:url('../images/coin-memeow.png') center/contain no-repeat;  animation: moveAndFade 8s infinite; animation-delay: 0s, 5s;}
 		.memeCat:after {right:auto; left:0; animation-delay: 4s; opacity:0;}
@@ -484,7 +484,7 @@ body { position:relative; color:#000; font-family: "Inter", sans-serif; backgrou
 	.footer__section:after {display:none;}
 	.footer__section:before {left:auto; margin-right:-90px; right:0;}
 	.what__is-right img {width:80%;max-width:80%;}
-	.memeCat {bottom:30px;}
+	.memeCat {}
 	.roadmap__title,
 	.roadmap__header h2 {font-size:25px;}
 }	
